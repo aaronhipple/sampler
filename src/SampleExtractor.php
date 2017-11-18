@@ -46,6 +46,7 @@ class SampleExtractor extends NodeVisitorAbstract
     {
         if ($node instanceof Node\Stmt\Class_) {
             $this->getClassSamples($node);
+            $this->getClassMethodSamples($node);
         }
         
         if ($node instanceof Node\Stmt\Function_) {
@@ -79,8 +80,17 @@ class SampleExtractor extends NodeVisitorAbstract
                 }
             );
         }
+    }
 
-
+    /**
+     * Get samples for each method of a given class.
+     *
+     * @param Node\Stmt\Class_ $class A 'class' node in the AST.
+     *
+     * @return void
+     */
+    protected function getClassMethodSamples(Node\Stmt\Class_  $class) 
+    {
         foreach ($class->getMethods() as $method) {
             $methodComment = $method->getDocComment();
 

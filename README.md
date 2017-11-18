@@ -1,5 +1,9 @@
 # sampler
 
+[![Build Status](https://travis-ci.org/aaronhipple/sampler.svg?branch=master)](https://travis-ci.org/aaronhipple/sampler)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d0b8fc607863ad444c85/maintainability)](https://codeclimate.com/github/aaronhipple/sampler/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d0b8fc607863ad444c85/test_coverage)](https://codeclimate.com/github/aaronhipple/sampler/test_coverage)
+
 Test inline code samples from your docblocks using PHPUnit!
 
 ## caveats

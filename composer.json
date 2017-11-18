@@ -12,7 +12,8 @@
   "require": {
     "phpunit/phpunit": ">=5.0",
     "phpdocumentor/reflection-docblock": "^3.0",
-    "nikic/php-parser": "^3.0"
+    "nikic/php-parser": "^3.0",
+    "erusev/parsedown": "^1.6"
   },
   "autoload": {
     "psr-4": {

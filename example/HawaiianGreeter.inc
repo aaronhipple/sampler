@@ -5,12 +5,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * Greets people the Hawaiian way.
  
- * @sample
- *   $greeter = new AaronHipple\Sampler\Example\HawaiianGreeter();
- *   PHPUnit\Framework\Assert::assertEquals(
- *     'Aloha, Frank!',
- *     $greeter->greet('Frank')
- *   );
+ * ```php
+ * $greeter = new AaronHipple\Sampler\Example\HawaiianGreeter();
+ * PHPUnit\Framework\Assert::assertEquals(
+ *   'Aloha, Frank!',
+ *   $greeter->greet('Frank')
+ * );
+ * ```
  */
 class HawaiianGreeter
 {

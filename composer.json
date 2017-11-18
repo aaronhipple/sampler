@@ -9,6 +9,10 @@
       "email": "ahipple@gmail.com"
     }
   ],
+  "scripts": {
+    "test": "phpunit --coverage-text",
+    "test:report": "phpunit --coverage-html=report && open report/index.html || xdg-open report/index.html"
+  },
   "require": {
     "phpunit/phpunit": ">=5.0",
     "phpdocumentor/reflection-docblock": "^3.0",

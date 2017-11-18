@@ -1,6 +1,8 @@
 {
   "name": "aaronhipple/sampler",
   "type": "library",
+  "license": "MIT",
+  "description": "Test inline code samples from your docblocks using PHPUnit",
   "authors": [
     {
       "name": "Aaron Hipple",

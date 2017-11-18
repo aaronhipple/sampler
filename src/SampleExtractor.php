@@ -187,10 +187,6 @@ class SampleExtractor extends NodeVisitorAbstract
      */
     protected function extractCodeSamples($description) 
     {
-        if (empty($description)) {
-            return [];
-        }
-
         $parsed = Parsedown::instance()->text($description);
         if (empty($parsed)) {
             return [];

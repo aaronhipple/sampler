@@ -65,7 +65,7 @@ class SampleExtractor extends NodeVisitorAbstract
     {
         $classComment = $class->getDocComment();
         if (!empty($classComment)) {
-            $classSamples = $this->extractSamplesFromDocBlock(
+            $classSamples = $this->extractTagSamples(
                 $classComment->getReformattedText()
             );
             
@@ -98,7 +98,7 @@ class SampleExtractor extends NodeVisitorAbstract
                 return;
             }
             
-            $methodSamples = $this->extractSamplesFromDocBlock(
+            $methodSamples = $this->extractTagSamples(
                 $methodComment->getReformattedText()
             );
 
@@ -131,7 +131,7 @@ class SampleExtractor extends NodeVisitorAbstract
             return;
         }
         
-        $samples = $this->extractSamplesFromDocBlock(
+        $samples = $this->extractTagSamples(
             $functionComment->getReformattedText()
         );
 
@@ -154,7 +154,7 @@ class SampleExtractor extends NodeVisitorAbstract
      *
      * @return []string
      */
-    protected function extractSamplesFromDocBlock($block) 
+    protected function extractTagSamples($block) 
     {
         if (!isset($this->_factory)) {
             $this->_factory = DocBlockFactory::createInstance();

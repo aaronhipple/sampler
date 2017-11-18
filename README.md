@@ -49,7 +49,7 @@ class SampleTest extends AbstractSampleTestCase
 }
 ```
 
-Finally, write some samples!
+Finally, write some samples! You can use our `@sample` annotation...
 
 ```php
 /**
@@ -67,6 +67,35 @@ Finally, write some samples!
  *     'Hello, Aaron!',
  *     say_hello('Aaron')
  *   );
+ */
+function say_hello($name) {
+  return "Hello, $name!";
+}
+```
+
+...or good ol' inline markdown.
+
+```php
+/**
+ * Say hello to someone!
+ *
+ * # Examples
+ *
+ * ```
+ * use PHPUnit\Framework\Assert;
+ * Assert::assertEquals(
+ *   'Hello, Aaron!',
+ *   say_hello('Aaron')
+ * );
+ * ```
+ *
+ * ```
+ * use PHPUnit\Framework\Assert;
+ * Assert::assertEquals(
+ *   'Hello, Frank!',
+ *   say_hello('Frank')
+ * );
+ * ```
  */
 function say_hello($name) {
   return "Hello, $name!";

@@ -13,6 +13,8 @@
 
 namespace AaronHipple\Sampler;
 
+use DOMDocument;
+use Parsedown;
 use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
 use phpDocumentor\Reflection\DocBlockFactory;
@@ -65,7 +67,7 @@ class SampleExtractor extends NodeVisitorAbstract
     {
         $classComment = $class->getDocComment();
         if (!empty($classComment)) {
-            $classSamples = $this->extractSamplesFromDocBlock(
+            $classSamples = $this->extractSamples(
                 $classComment->getReformattedText()
             );
             
@@ -98,7 +100,7 @@ class SampleExtractor extends NodeVisitorAbstract
                 return;
             }
             
-            $methodSamples = $this->extractSamplesFromDocBlock(
+            $methodSamples = $this->extractSamples(
                 $methodComment->getReformattedText()
             );
 
@@ -131,7 +133,7 @@ class SampleExtractor extends NodeVisitorAbstract
             return;
         }
         
-        $samples = $this->extractSamplesFromDocBlock(
+        $samples = $this->extractSamples(
             $functionComment->getReformattedText()
         );
 
@@ -148,13 +150,13 @@ class SampleExtractor extends NodeVisitorAbstract
     }
 
     /**
-     * Extract sample code.
+     * Extract sample code tagged with `@sample`-style annotations.
      *
      * @param string $block A documentation block.
      *
      * @return []string
      */
-    protected function extractSamplesFromDocBlock($block) 
+    protected function extractSamples($block) 
     {
         if (!isset($this->_factory)) {
             $this->_factory = DocBlockFactory::createInstance();
@@ -163,11 +165,47 @@ class SampleExtractor extends NodeVisitorAbstract
         $docblock = $this->_factory->create($block);
         $tags = $docblock->getTagsByName('sample');
 
-        return array_map(
+        $tagSamples = array_map(
             function ($tag) {
                 return (string)$tag;
             }, $tags
         );
+
+        $codeSamples = $this->extractCodeSamples(
+            $docblock->getDescription()
+        );
+
+        return $tagSamples + $codeSamples;
+    }
+
+    /**
+     * Extract sample code from HTML and markdown blocks.
+     *
+     * @param string $description A documentation block description.
+     *
+     * @return []string
+     */
+    protected function extractCodeSamples($description) 
+    {
+        $parsed = Parsedown::instance()->text($description);
+        if (empty($parsed)) {
+            return [];
+        }
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($parsed);
+        $samples = [];
+
+        foreach ($dom->getElementsByTagName('code') as $node) {
+            $classAttr = $node->attributes->getNamedItem('class');
+
+            // Take only unmarked or 'php' blocks.
+            if (is_null($classAttr) || $classAttr->value === 'language-php') {
+                $samples[] = $node->textContent;
+            }
+        }
+
+        return $samples;
     }
 
     /**

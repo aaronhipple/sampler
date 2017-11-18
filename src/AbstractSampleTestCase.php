@@ -55,7 +55,7 @@ abstract class AbstractSampleTestCase extends TestCase
      */
     public function testSample($code)
     {
-        echo eval($code);
+        eval($code);
     }
 
     /**
